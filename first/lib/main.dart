@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './question.dart';
+import './answer.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,7 +26,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var _questions = ["What's your fav color ? ", "What's your fav animal?"];
+    var _questions = [
+      {
+        "question": "What's your fav color ? ",
+        "options": ["Red", "Blue", "Black", "Yellow"]
+      },
+      {
+        "question": "What's your fav animal ? ",
+        "options": ["Lion", "Dog", "Cat", "Rabbit"]
+      }
+    ];
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
@@ -33,25 +43,11 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
-              Question(_questions[_questionIdex]),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.redAccent),
-                ),
-                child: Text("Ans 1"),
-                onPressed: _ansQuestion,
-              ),
-              ElevatedButton(
-                child: Text("Ans 2"),
-                onPressed: _ansQuestion,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red[900]),
-                ),
-                child: Text("Ans 3"),
-                onPressed: _ansQuestion,
-              ),
+              Question(_questions[_questionIdex]['question']),
+              ...(_questions[_questionIdex]['options'] as List<String>)
+                  .map((option) {
+                return Answer(_ansQuestion, option);
+              })
             ],
           )),
     );
