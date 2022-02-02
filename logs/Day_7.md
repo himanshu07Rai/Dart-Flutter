@@ -4,6 +4,8 @@ Privacy in Dart exists at the library, rather than the class level.
 
 In dart '\_' is used before the variable name to declare it as private. Unlike other programming languages, here private doesn't mean it is available only to the class it is in, private means it is accessible in the file it is in and not accessible to other files.
 
+---
+
 ## Using map
 
 ```dart
@@ -64,3 +66,28 @@ class _MyAppState extends State<MyApp> {
 }
 
 ```
+
+---
+
+## final vs const
+
+**final**
+
+- A variable with the final keyword will be initialized at _runtime_ and can only be assigned for a single time.
+- In a class and function, you can define a final variable.
+- For Flutter specific, when the state is updated, everything in the build method will be initialized again. This includes all the variables with final.
+
+**const**
+
+- A variable with the const keyword is initialized at _compile-time_ and is already assigned when at runtime.
+- You can’t define const inside a class. But you can in a function.
+- For Flutter specific, everything in the build method won’t be initialized again when the state is updated.
+- const can’t be changed during runtime.
+
+### When to use which keyword?
+
+A simple example for both:
+
+- Use final: If you don’t know what it’s value will be at compile-time. For example, when you can need to get data from an API, this happens when running your code.
+
+- Use const: If you are sure that a value isn’t going to be changed when running your code. For example, when you declare a sentence that always remains the same.
