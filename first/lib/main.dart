@@ -12,28 +12,42 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int _totalScore = 0;
   static const _questions = [
     {
       "question": "What's your fav color ? ",
-      "options": ["Red", "Blue", "Black", "Yellow"]
+      "options": [
+        {"text": "Red", "score": 30},
+        {"text": "Blue", "score": 20},
+        {"text": "Black", "score": 50},
+        {"text": "Yellow", "score": 30}
+      ]
     },
     {
       "question": "What's your fav animal ? ",
-      "options": ["Lion", "Dog", "Cat", "Rabbit"]
+      "options": [
+        {"text": "Lion", "score": 30},
+        {"text": "Zebra", "score": 20},
+        {"text": "Cat", "score": 50},
+        {"text": "Dog", "score": 30}
+      ]
     }
   ];
   var _questionIdex = 0;
-  void _ansQuestion() {
+  void _ansQuestion(int score) {
+    _totalScore += score;
     print("Answered");
     setState(() {
       _questionIdex++;
-      print(_questionIdex);
-      if (_questionIdex < _questions.length) {
-        print("More questions");
-      } else {
-        print("No more questions");
-      }
     });
+  }
+
+  void _resetQuiz() {
+    _totalScore = 0;
+    setState(() {
+      _questionIdex = 0;
+    });
+    print("reset");
   }
 
   @override
@@ -45,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: _questionIdex < _questions.length
             ? Quiz(_ansQuestion, _questions, _questionIdex)
-            : Result(),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
