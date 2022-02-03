@@ -26,11 +26,13 @@ class _MyAppState extends State<MyApp> {
   void _ansQuestion() {
     print("Answered");
     setState(() {
-      if (_questionIdex < _questions.length) {
-        _questionIdex--;
-        return;
-      }
       _questionIdex++;
+      print(_questionIdex);
+      if (_questionIdex < _questions.length) {
+        print("More questions");
+      } else {
+        print("No more questions");
+      }
     });
   }
 
@@ -38,18 +40,25 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("First ss App Bar"),
-          ),
-          body: Column(
-            children: [
-              Question(_questions[_questionIdex]['question'] as String),
-              ...(_questions[_questionIdex]['options'] as List<String>)
-                  .map((option) {
-                return Answer(_ansQuestion, option);
-              })
-            ],
-          )),
+        appBar: AppBar(
+          title: Text("First ss App Bar"),
+        ),
+        body: _questionIdex < _questions.length
+            ? Column(
+                children: [
+                  Question(
+                    _questions[_questionIdex]['question'] as String,
+                  ),
+                  ...(_questions[_questionIdex]['options'] as List<String>)
+                      .map((option) {
+                    return Answer(_ansQuestion, option);
+                  })
+                ],
+              )
+            : Center(
+                child: Text("Done"),
+              ),
+      ),
     );
   }
 }
