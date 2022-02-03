@@ -12,11 +12,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  static const _questions = [
+    {
+      "question": "What's your fav color ? ",
+      "options": ["Red", "Blue", "Black", "Yellow"]
+    },
+    {
+      "question": "What's your fav animal ? ",
+      "options": ["Lion", "Dog", "Cat", "Rabbit"]
+    }
+  ];
   var _questionIdex = 0;
   void _ansQuestion() {
     print("Answered");
     setState(() {
-      if (_questionIdex == 1) {
+      if (_questionIdex < _questions.length) {
         _questionIdex--;
         return;
       }
@@ -26,16 +36,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    const _questions = [
-      {
-        "question": "What's your fav color ? ",
-        "options": ["Red", "Blue", "Black", "Yellow"]
-      },
-      {
-        "question": "What's your fav animal ? ",
-        "options": ["Lion", "Dog", "Cat", "Rabbit"]
-      }
-    ];
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
-              Question(_questions[_questionIdex]['question']),
+              Question(_questions[_questionIdex]['question'] as String),
               ...(_questions[_questionIdex]['options'] as List<String>)
                   .map((option) {
                 return Answer(_ansQuestion, option);
