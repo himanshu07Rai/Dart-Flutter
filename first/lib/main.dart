@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,20 +44,8 @@ class _MyAppState extends State<MyApp> {
           title: Text("First ss App Bar"),
         ),
         body: _questionIdex < _questions.length
-            ? Column(
-                children: [
-                  Question(
-                    _questions[_questionIdex]['question'] as String,
-                  ),
-                  ...(_questions[_questionIdex]['options'] as List<String>)
-                      .map((option) {
-                    return Answer(_ansQuestion, option);
-                  })
-                ],
-              )
-            : Center(
-                child: Text("Done"),
-              ),
+            ? Quiz(_ansQuestion, _questions, _questionIdex)
+            : Result(),
       ),
     );
   }
