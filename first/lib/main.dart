@@ -47,12 +47,13 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _questionIdex = 0;
     });
-    print("reset");
+    // print("reset");
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text("First ss App Bar"),
